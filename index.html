@@ -147,7 +147,6 @@
             line-height: 1.4;
         }
     </style>
-    <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
 
@@ -158,25 +157,28 @@
 
         <div class="player-container">
             <button class="btn-play" id="playBtn" onclick="toggleMúsica()">▶ Dar o Play no Nosso Amor</button>
-            <div id="yt-player" style="display: none;"></div>
+            
+            <audio id="musica" loop>
+                <source src="tribalistas - velha infancia - bikerboyzrome (youtube).mp3" type="audio/mpeg">
+            </audio>
         </div>
 
         <div class="slide-container">
             <div class="slide active">
-                <img src="WhatsApp Image 2026-06-01 at 22.22.17.jpg" alt="Nossa Foto 1">
+                <img src="foto1.jpeg.jpeg" alt="Nossa Foto 1">
             </div>
             <div class="slide">
-                <img src="WhatsApp Image 2026-06-12 at 19.23.11 (1).jpeg" alt="Nossa Foto 2">
+                <img src="foto2.jpeg.jpeg" alt="Nossa Foto 2">
             </div>
             <div class="slide">
-                <img src="WhatsApp Image 2026-06-12 at 19.23.11 (2).jpeg" alt="Nossa Foto 3">
+                <img src="foto3.jpeg.jpg" alt="Nossa Foto 3">
             </div>
             <div class="slide">
-                <img src="WhatsApp Image 2026-06-12 at 19.23.11.jpeg" alt="Nossa Foto 4">
+                <img src="foto4.jpeg.jpeg" alt="Nossa Foto 4">
             </div>
         </div>
 
-        <div class="legenda" id="textoLegenda">Cada segundo ao seu lado é um presente.</div>
+        <div class="legenda" id="textoLegenda">Você é assim, um sonho pra mim... ✨</div>
     </div>
 
     <script>
@@ -184,11 +186,12 @@
         const legendaTxt = document.getElementById('textoLegenda');
         let atual = 0;
 
+        // Legendas românticas combinando com a música "Velha Infância"
         const legendas = [
-            "Onde eu queria estar agora... do seu lado no nosso lugar favorito. ✨",
-            "Amo cada detalhe seu, cada risada e a paz que você me traz. 💖",
-            "Minha parceria para todas as horas, meu porto seguro. 🔒",
-            "Seu abraço é o meu lugar preferido no mundo inteiro. Te amo! 🌍❤️"
+            "Onde eu queria estar agora... grudado em você no nosso lugar favorito. ✨",
+            "“Você é assim, um sonho pra mim...” Amo cada detalhe do seu sorriso. 💖",
+            "Meu porto seguro, a minha melhor parceria para todas as horas. 🔒",
+            "“O meu melhor amigo é o meu amor...” Te amo daqui até a eternidade! 🌍❤️"
         ];
 
         function mudarSlide() {
@@ -198,12 +201,12 @@
             legendaTxt.innerText = legendas[atual];
         }
 
-        setInterval(mudarSlide, 4000);
+        setInterval(mudarSlide, 4100);
 
         const frasesDoFundo = [
             "Te amo", "Meu amor", "Para sempre", "Minha vida", 
-            "Você me faz tão bem", "Minha namorada linda", 
-            "Paixão da minha vida", "Do seu lado é melhor"
+            "Você me faz tão bem", "Minha linda", 
+            "Meu porto seguro", "Do seu lado é perfeito"
         ];
 
         function criarFraseFundo() {
@@ -226,35 +229,16 @@
 
         setInterval(criarFraseFundo, 2000);
 
-        // Configuração do Player do YouTube (Invisível)
-        let player;
-        let tocando = false;
-
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('yt-player', {
-                height: '0',
-                width: '0',
-                videoId: 'RgKAFK5djSk', // ID oficial do clipe See You Again
-                playerVars: {
-                    'autoplay': 0,
-                    'loop': 1,
-                    'playlist': 'RgKAFK5djSk'
-                }
-            });
-        }
-
+        const musica = document.getElementById('musica');
+        
         function toggleMúsica() {
             const btn = document.getElementById('playBtn');
-            if (!player) return;
-
-            if (!tocando) {
-                player.playVideo();
+            if (musica.paused) {
+                musica.play().catch(e => console.log("Erro ao reproduzir música:", e));
                 btn.innerText = "⏸️ Nosso Som Está Tocando...";
-                tocando = true;
             } else {
-                player.pauseVideo();
+                musica.pause();
                 btn.innerText = "▶ Dar o Play no Nosso Amor";
-                tocando = false;
             }
         }
     </script>
