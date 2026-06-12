@@ -147,6 +147,7 @@
             line-height: 1.4;
         }
     </style>
+    <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
 
@@ -157,23 +158,21 @@
 
         <div class="player-container">
             <button class="btn-play" id="playBtn" onclick="toggleMúsica()">▶ Dar o Play no Nosso Amor</button>
-            <audio id="musica" loop crossorigin="anonymous">
-                <source src="https://archive.org/download/wiz-khalifa-see-you-again-ft.-charlie-puth-instrumental/Wiz%20Khalifa%20-%20See%20You%20Again%20ft.%20Charlie%20Puth%20%28Instrumental%29.mp3" type="audio/mpeg">
-            </audio>
+            <div id="yt-player" style="display: none;"></div>
         </div>
 
         <div class="slide-container">
             <div class="slide active">
-                <img src="foto1.jpeg" alt="Nossa Foto 1">
+                <img src="WhatsApp Image 2026-06-01 at 22.22.17.jpg" alt="Nossa Foto 1">
             </div>
             <div class="slide">
-                <img src="foto2.jpeg" alt="Nossa Foto 2">
+                <img src="WhatsApp Image 2026-06-12 at 19.23.11 (1).jpeg" alt="Nossa Foto 2">
             </div>
             <div class="slide">
-                <img src="foto3.jpeg" alt="Nossa Foto 3">
+                <img src="WhatsApp Image 2026-06-12 at 19.23.11 (2).jpeg" alt="Nossa Foto 3">
             </div>
             <div class="slide">
-                <img src="foto4.jpeg" alt="Nossa Foto 4">
+                <img src="WhatsApp Image 2026-06-12 at 19.23.11.jpeg" alt="Nossa Foto 4">
             </div>
         </div>
 
@@ -181,7 +180,6 @@
     </div>
 
     <script>
-        // Configurações do Slide e Legendas
         const slides = document.querySelectorAll('.slide');
         const legendaTxt = document.getElementById('textoLegenda');
         let atual = 0;
@@ -200,10 +198,8 @@
             legendaTxt.innerText = legendas[atual];
         }
 
-        // Muda a foto a cada 4 segundos
         setInterval(mudarSlide, 4000);
 
-        // Gerador de Frases Flutuantes ao Fundo
         const frasesDoFundo = [
             "Te amo", "Meu amor", "Para sempre", "Minha vida", 
             "Você me faz tão bem", "Minha namorada linda", 
@@ -230,17 +226,35 @@
 
         setInterval(criarFraseFundo, 2000);
 
-        // Controle do Botão de Música
-        const musica = document.getElementById('musica');
-        
+        // Configuração do Player do YouTube (Invisível)
+        let player;
+        let tocando = false;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('yt-player', {
+                height: '0',
+                width: '0',
+                videoId: 'RgKAFK5djSk', // ID oficial do clipe See You Again
+                playerVars: {
+                    'autoplay': 0,
+                    'loop': 1,
+                    'playlist': 'RgKAFK5djSk'
+                }
+            });
+        }
+
         function toggleMúsica() {
             const btn = document.getElementById('playBtn');
-            if (musica.paused) {
-                musica.play().catch(e => console.log("Erro ao reproduzir o áudio:", e));
+            if (!player) return;
+
+            if (!tocando) {
+                player.playVideo();
                 btn.innerText = "⏸️ Nosso Som Está Tocando...";
+                tocando = true;
             } else {
-                musica.pause();
+                player.pauseVideo();
                 btn.innerText = "▶ Dar o Play no Nosso Amor";
+                tocando = false;
             }
         }
     </script>
