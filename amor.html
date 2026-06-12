@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para o Meu Amor ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e0b36, #0b1b36);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Frases flutuantes no fundo */
+        .fundo-frases {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .frase-fundo {
+            position: absolute;
+            color: rgba(168, 85, 247, 0.15);
+            font-size: 1.5rem;
+            font-weight: bold;
+            white-space: nowrap;
+            animation: moverFrase 25s linear infinite;
+        }
+
+        @keyframes moverFrase {
+            0% { transform: translateY(110vh) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) translateX(50px); opacity: 0; }
+        }
+
+        /* Container Principal */
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 450px;
+            width: 90%;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #a855f7, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+        }
+
+        /* Player de Música */
+        .player-container {
+            margin-bottom: 20px;
+        }
+
+        .btn-play {
+            background: linear-gradient(45deg, #a855f7, #3b82f6);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+        }
+
+        .btn-play:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+        }
+
+        /* Slide de Fotos */
+        .slide-container {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border: 2px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        /* Legenda das fotos */
+        .legenda {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #e2e8f0;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="fundo-frases" id="fundoFrases"></div>
+
+    <div class="container">
+        <h1>Para a dona do meu melhor sorriso ❤️</h1>
+
+        <div class="player-container">
+            <button class="btn-play" id="playBtn" onclick="toggleMúsica()">▶ Dar o Play no Nosso Amor</button>
+            <audio id="musica" loop>
+                <source src="musica.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+
+        <div class="slide-container">
+            <div class="slide active">
+                <img src="foto1.jpg" alt="Nossa Foto 1">
+            </div>
+            <div class="slide">
+                <img src="foto2.jpg" alt="Nossa Foto 2">
+            </div>
+            <div class="slide">
+                <img src="foto3.jpg" alt="Nossa Foto 3">
+            </div>
+            <div class="slide">
+                <img src="foto4.jpg" alt="Nossa Foto 4">
+            </div>
+        </div>
+
+        <div class="legenda" id="textoLegenda">Cada segundo ao seu lado é um presente.</div>
+    </div>
+
+    <script>
+        // Configurações do Slide e Legendas
+        const slides = document.querySelectorAll('.slide');
+        const legendaTxt = document.getElementById('textoLegenda');
+        let atual = 0;
+
+        const legendas = [
+            "Onde eu queria estar agora... do seu lado no nosso lugar favorito. ✨",
+            "Amo cada detalhe seu, cada risada e a paz que você me traz. 💖",
+            "Minha parceria para todas as horas, meu porto seguro. 🔒",
+            "Seu abraço é o meu lugar preferido no mundo inteiro. Te amo! 🌍❤️"
+        ];
+
+        function mudarSlide() {
+            slides[atual].classList.remove('active');
+            atual = (atual + 1) % slides.length;
+            slides[atual].classList.add('active');
+            legendaTxt.innerText = legendas[atual];
+        }
+
+        // Muda a foto a cada 4 segundos
+        setInterval(mudarSlide, 4000);
+
+        // Gerador de Frases Flutuantes ao Fundo
+        const frasesDoFundo = [
+            "Te amo", "Meu amor", "Para sempre", "Minha vida", 
+            "Você me faz tão bem", "Minha namorada linda", 
+            "Paixão da minha vida", "Do seu lado é melhor"
+        ];
+
+        function criarFraseFundo() {
+            const fundo = document.getElementById('fundoFrases');
+            const frase = document.createElement('div');
+            frase.classList.add('frase-fundo');
+            frase.innerText = frasesDoFundo[Math.floor(Math.random() * frasesDoFundo.length)];
+            
+            frase.style.left = Math.random() * 90 + "vw";
+            const duracao = 15 + Math.random() * 15;
+            frase.style.animationDuration = duracao + "s";
+            frase.style.fontSize = (1 + Math.random() * 1) + "rem";
+
+            fundo.appendChild(frase);
+
+            setTimeout(() => {
+                frase.remove();
+            }, duracao * 1000);
+        }
+
+        setInterval(criarFraseFundo, 2500);
+
+        // Controle do Botão de Música Local
+        const musica = document.getElementById('musica');
+        
+        function toggleMúsica() {
+            const btn = document.getElementById('playBtn');
+            if (musica.paused) {
+                musica.play().catch(e => console.log("Erro ao tocar áudio:", e));
+                btn.innerText = "⏸️ Nosso Som Está Tocando...";
+            } else {
+                musica.pause();
+                btn.innerText = "▶ Dar o Play no Nosso Amor";
+            }
+        }
+    </script>
+</body>
+</html>
