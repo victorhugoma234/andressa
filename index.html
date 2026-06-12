@@ -186,12 +186,12 @@
         const legendaTxt = document.getElementById('textoLegenda');
         let atual = 0;
 
-        // Legendas românticas combinando com a música "Velha Infância"
+        // Legendas românticas baseadas na música Velha Infância
         const legendas = [
-            "Onde eu queria estar agora... grudado em você no nosso lugar favorito. ✨",
-            "“Você é assim, um sonho pra mim...” Amo cada detalhe do seu sorriso. 💖",
-            "Meu porto seguro, a minha melhor parceria para todas as horas. 🔒",
-            "“O meu melhor amigo é o meu amor...” Te amo daqui até a eternidade! 🌍❤️"
+            "Onde eu queria estar agora... do seu lado no nosso lugar favorito. ✨",
+            "“Você é assim, um sonho pra mim...” Amo cada detalhe seu. 💖",
+            "Minha parceria para todas as horas, meu porto seguro. 🔒",
+            "“O meu melhor amigo é o meu amor...” Te amo demais! 🌍❤️"
         ];
 
         function mudarSlide() {
@@ -201,12 +201,13 @@
             legendaTxt.innerText = legendas[atual];
         }
 
-        setInterval(mudarSlide, 4100);
+        // Muda a foto a cada 4 segundos
+        setInterval(mudarSlide, 4000);
 
         const frasesDoFundo = [
             "Te amo", "Meu amor", "Para sempre", "Minha vida", 
-            "Você me faz tão bem", "Minha linda", 
-            "Meu porto seguro", "Do seu lado é perfeito"
+            "Você me faz tão bem", "Minha namorada linda", 
+            "Porto seguro", "Do seu lado é melhor"
         ];
 
         function criarFraseFundo() {
@@ -234,7 +235,7 @@
         function toggleMúsica() {
             const btn = document.getElementById('playBtn');
             if (musica.paused) {
-                musica.play().catch(e => console.log("Erro ao reproduzir música:", e));
+                musica.play().catch(e => console.log("Erro ao reproduzir o áudio:", e));
                 btn.innerText = "⏸️ Nosso Som Está Tocando...";
             } else {
                 musica.pause();
