@@ -38,10 +38,10 @@
         .frase-fundo {
             position: absolute;
             color: rgba(168, 85, 247, 0.15);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: bold;
             white-space: nowrap;
-            animation: moverFrase 25s linear infinite;
+            animation: moverFrase 22s linear infinite;
         }
 
         @keyframes moverFrase {
@@ -67,7 +67,7 @@
         }
 
         h1 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             margin-bottom: 20px;
             background: linear-gradient(45deg, #a855f7, #3b82f6);
             -webkit-background-clip: text;
@@ -101,7 +101,7 @@
         /* Slide de Fotos */
         .slide-container {
             width: 100%;
-            height: 400px;
+            height: 420px;
             position: relative;
             border-radius: 15px;
             overflow: hidden;
@@ -121,6 +121,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            background-color: #000;
         }
 
         .slide img {
@@ -143,6 +144,7 @@
             align-items: center;
             justify-content: center;
             padding: 0 10px;
+            line-height: 1.4;
         }
     </style>
 </head>
@@ -155,23 +157,23 @@
 
         <div class="player-container">
             <button class="btn-play" id="playBtn" onclick="toggleMúsica()">▶ Dar o Play no Nosso Amor</button>
-            <audio id="musica" loop>
-                <source src="musica.mp3" type="audio/mpeg">
+            <audio id="musica" loop crossorigin="anonymous">
+                <source src="https://archive.org/download/wiz-khalifa-see-you-again-ft.-charlie-puth-instrumental/Wiz%20Khalifa%20-%20See%20You%20Again%20ft.%20Charlie%20Puth%20%28Instrumental%29.mp3" type="audio/mpeg">
             </audio>
         </div>
 
         <div class="slide-container">
             <div class="slide active">
-                <img src="foto1.jpg" alt="Nossa Foto 1">
+                <img src="foto1.jpeg" alt="Nossa Foto 1">
             </div>
             <div class="slide">
-                <img src="foto2.jpg" alt="Nossa Foto 2">
+                <img src="foto2.jpeg" alt="Nossa Foto 2">
             </div>
             <div class="slide">
-                <img src="foto3.jpg" alt="Nossa Foto 3">
+                <img src="foto3.jpeg" alt="Nossa Foto 3">
             </div>
             <div class="slide">
-                <img src="foto4.jpg" alt="Nossa Foto 4">
+                <img src="foto4.jpeg" alt="Nossa Foto 4">
             </div>
         </div>
 
@@ -214,10 +216,10 @@
             frase.classList.add('frase-fundo');
             frase.innerText = frasesDoFundo[Math.floor(Math.random() * frasesDoFundo.length)];
             
-            frase.style.left = Math.random() * 90 + "vw";
-            const duracao = 15 + Math.random() * 15;
+            frase.style.left = Math.random() * 85 + "vw";
+            const duracao = 15 + Math.random() * 12;
             frase.style.animationDuration = duracao + "s";
-            frase.style.fontSize = (1 + Math.random() * 1) + "rem";
+            frase.style.fontSize = (1 + Math.random() * 0.8) + "rem";
 
             fundo.appendChild(frase);
 
@@ -226,15 +228,15 @@
             }, duracao * 1000);
         }
 
-        setInterval(criarFraseFundo, 2500);
+        setInterval(criarFraseFundo, 2000);
 
-        // Controle do Botão de Música Local
+        // Controle do Botão de Música
         const musica = document.getElementById('musica');
         
         function toggleMúsica() {
             const btn = document.getElementById('playBtn');
             if (musica.paused) {
-                musica.play().catch(e => console.log("Erro ao tocar áudio:", e));
+                musica.play().catch(e => console.log("Erro ao reproduzir o áudio:", e));
                 btn.innerText = "⏸️ Nosso Som Está Tocando...";
             } else {
                 musica.pause();
